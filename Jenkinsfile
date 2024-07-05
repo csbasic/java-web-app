@@ -8,6 +8,7 @@ pipeline {
     jdk "Java17"
     maven 'Maven3'
   }
+
   environment {
     APP_NAME = "java-web-app"
     RELEASE = "1.0.0"
@@ -33,5 +34,5 @@ pipeline {
       }
 
     }
-    
+  }  
 }
