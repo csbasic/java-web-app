@@ -32,6 +32,13 @@ pipeline {
         git branch: 'main', credentialsId: 'github', url: 'https://github.com/csbasic/java-web-app.git'
       }
 
+      stage("Test Application"){
+          steps {
+              sh "mvn test"
+          }
+
+      }
+
     }
   }  
 }
