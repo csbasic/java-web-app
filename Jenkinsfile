@@ -3,42 +3,34 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
+
+  tools {
+    jdk "Java17"
+    maven 'Maven3'
+  }
   environment {
-    HEROKU_API_KEY = credentials('darinpope-heroku-api-key')
+    APP_NAME = "java-web-app"
+    RELEASE = "1.0.0"
+    DOCKER_USER = "csbasic"
+    DOCKER_PASS = 'dockerhub'
+    IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+    IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+    JENKINS_API_TOKEN = credentials
+    ("JENKINS_API_TOKEN")
+  
   }
-  parameters { 
-    string(name: 'APP_NAME', defaultValue: '', description: 'What is the Heroku app name?') 
-  }
+
   stages {
-    stage('Build') {
+    stage('Cleanup Workspace') {
       steps {
-        sh 'docker build -t darinpope/java-web-app:latest .'
+        cleanWs() 
       }
     }
-    stage('Login') {
+
+    stage("Checkout from SCM"){
       steps {
-        sh 'echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com'
+        git branch: 'main' credentialsId: 'github', url: 'https://github.com/csbasic/java-web-app.git'
       }
     }
-    stage('Push to Heroku registry') {
-      steps {
-        sh '''
-          docker tag darinpope/java-web-app:latest registry.heroku.com/$APP_NAME/web
-          docker push registry.heroku.com/$APP_NAME/web
-        '''
-      }
-    }
-    stage('Release the image') {
-      steps {
-        sh '''
-          heroku container:release web --app=$APP_NAME
-        '''
-      }
-    }
-  }
-  post {
-    always {
-      sh 'docker logout'
-    }
-  }
+    
 }
