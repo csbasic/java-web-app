@@ -1,8 +1,8 @@
 pipeline {
-  agent { label 'linux' }
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
+
+  agent { 
+    label 'jenkins-agent' 
+    }
 
   tools {
     jdk "Java17"
