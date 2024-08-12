@@ -51,16 +51,15 @@ pipeline {
 
     stage("Quality Gate") {
       steps {
-        timeout(time: 3, unit: 'MINUTES') {
-          def qg = waitForQualityGate() 
-          if(qg.status !='OK') {
-            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-          }
+        timeout(time: 10, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
         }
-
-        echo 'Quality Gate Passed'
       }
     }
+
+    // script {
+    //       waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+    //     }
 
     // stage("Build & Push Docker Image") {
     //   steps {
