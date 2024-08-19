@@ -13,7 +13,7 @@ pipeline {
     APP_NAME = "java-web-app"
     RELEASE = "1.0.0"
     DOCKER_USER = "csbasic"
-    DOCKER_PASS = 'dockerhub-token'
+    DOCKER_PASS = 'jenkins-docker-token'
     IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
     IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     // JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
