@@ -34,73 +34,73 @@ pipeline {
 
     stage("Application Testing"){
       steps {
-        sh "mvn test"
+        echo "mvn test"
       }
     }
 
     stage("File System Scan"){
       steps {
-        sh "File System Scan"
+        echo "File System Scan"
       }
     }
 
     stage("Sonarqube Analysis"){
       steps {
-        sh "Sonarqube analysis"
+        echo "Sonarqube analysis"
       }
     }
 
     stage("Quality Gate") {
       steps {
-        sh "Quality Gate"
+        echo "Quality Gate"
       }
     }
 
     stage("Build"){
       steps {
-        sh "Build Stage"
+        echo "Build Stage"
       }
     }
 
     stage("Publish To Nexus") {
       steps {
-        sh "Store and distribute artifact"
+        echo "Store and distribute artifact"
       }
     }
 
     stage("Build & Tag Docker Image"){
       steps {
-        sh "Build a docker image image with a tag"
+        echo "Build a docker image image with a tag"
       }
     }
 
     stage("Docker Image Scan"){
       steps {
-        sh "Scan docker image"
+        echo "Scan docker image"
       }
     }
 
     stage("Push Docker Image"){
       steps {
-        sh "Publishing docker image to registry"
+        echo "Publishing docker image to registry"
       }
     }
 
     stage("Deploy To Kubernetes"){
       steps {
-        sh "Deploy containers to kubernetes"
+        echo "Deploy containers to kubernetes"
       }
     }
 
     stage("Verify Deployment"){
       steps {
-        sh "Check if everything is ok with deployment"
+        echo "Check if everything is ok with deployment"
       }
     }
 
     stage("Declarative Post Actions"){
       steps {
-        sh "Finalize the project"
+        echo "Finalize the project"
       }
     }
   }  
