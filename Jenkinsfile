@@ -28,7 +28,7 @@ pipeline {
 
     stage("Checkout from SCM"){
       steps {
-        sh "Clone app from Git repo"
+        git branch: 'main', credentialsId: 'github', url: 'https://github.com/csbasic/java-web-app.git'
       }
     }
 
